@@ -1,19 +1,20 @@
-import React from 'react';
-import { useState } from 'react';
-import './style.css';
-import AddItem from './components/AddItem';
-import CardList from "./components/CardList";
+import React from "react";
+import { useState } from "react";
+import AddItem from "../../components/AddItem";
+import CardList from "../../components/CardList";
+import "./index-page.css";
+
 
 function getLikesFromCache() {
-  return JSON.parse(localStorage.getItem('likes') || '[]');
+  return JSON.parse(localStorage.getItem("likes") || "[]");
 }
 
 function SaveLikesToCache(likes) {
-  localStorage.setItem('likes', JSON.stringify(likes));
+  localStorage.setItem("likes", JSON.stringify(likes));
 }
 
-export default function App() {
-  const BASE_URL = 'https://www.omdbapi.com/?apikey=e3ecc307&s=';
+export default function Root() {
+  const BASE_URL = "https://www.omdbapi.com/?apikey=e3ecc307&s=";
   const [searchIsActive, setSearchIsActive] = useState(false);
   const [data, setData] = useState([]);
   const [likes, setLikes] = useState(getLikesFromCache());
@@ -22,7 +23,7 @@ export default function App() {
     setSearchIsActive(true);
     let fetchUrl = BASE_URL + query;
     let response = await fetch(fetchUrl, {
-      method: 'GET',
+      method: "GET",
     });
     let data = await response.json();
     setData(data.Search);
@@ -43,7 +44,7 @@ export default function App() {
   }
 
   return (
-    <div style={{ textAlign: 'center', paddingTop: '50px' }}>
+    <div style={{ textAlign: "center", paddingTop: "50px" }}>
       {likes.map((like, index) => (
         <div>
           {like.Title}- {like.Year}
